@@ -1,0 +1,18 @@
+# =====================================================================
+# Sécurité de base (hébergement Apache) — à garder tel quel
+# =====================================================================
+
+# Désactive le listage des dossiers
+Options -Indexes
+
+# Force HTTPS une fois le certificat actif sur votre domaine
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Cache l'en-tête révélant la version de PHP
+<IfModule mod_headers.c>
+  Header unset X-Powered-By
+</IfModule>
